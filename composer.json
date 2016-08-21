@@ -1,0 +1,25 @@
+{
+    "name": "vijinho/enums",
+    "description": "PHP7 Enum Implementation",
+    "keywords": ["php", "enum", "enums", "php7"],
+    "homepage": "https://github.com/vijinho/enums",
+    "license": "GPL-3.0",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Vijay Mahrra",
+            "email": "vijay@yoyo.org",
+            "homepage": "http://about.me/vijay.mahrra",
+            "role": "Developer"
+        }
+    ],
+    "config": {
+        "vendor-dir": "lib"
+    },
+    "autoload": {
+        "classmap": ["src/Enums", "src"]
+    },
+    "require": {
+		"php": ">=5.6"
+	}
+}
