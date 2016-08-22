@@ -119,7 +119,7 @@ var_dump($f); // special var_dump magic!
 object(Fruits)#3 (3) {
   ["capitalise"]=>
   bool(false)
-  ["case_sensitive"]=>
+  ["caseSensitive"]=>
   bool(false)
   ["values"]=>
   array(11) {
