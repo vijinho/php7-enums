@@ -360,7 +360,7 @@ class Enum implements \Serializable
         $values = static::$values;
         return [
             'capitalise' => $capitalize,
-            'case_sensitive' => $caseSensitive,
+            'caseSensitive' => $caseSensitive,
             'values' => $values
         ];
     }
