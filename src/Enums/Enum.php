@@ -19,7 +19,25 @@ class Enum implements \Serializable
     protected static $values = [];
 
     /**
+     * allow keys to be unset/deleted?
+     * cannot be over-ridden once defined in a class
+     *
+     * @var boolean
+     */
+    protected static $delete = false;
+
+    /**
+     * allow keys to be over-written when adding?
+     * cannot be over-ridden once defined in a class
+     *
+     * @var boolean
+     */
+    protected static $overwrite = false;
+
+    /**
      * always capitalize enum keys?
+     * can be over-ridden once defined in a class
+     * with capitalize(boolean) method
      *
      * @var boolean
      */
@@ -27,6 +45,8 @@ class Enum implements \Serializable
 
     /**
      * case-sensitive check when searching by key for a value?
+     * can be over-ridden once defined in a class
+     * with caseSensitive(boolean) method
      *
      * @var boolean
      */
@@ -86,6 +106,36 @@ class Enum implements \Serializable
 
 
     /**
+     * Remove an enum value - use with care!
+     *
+     */
+    public static function delete($key)
+    {
+        return static::unset($key);
+    }
+
+
+    /**
+     * Remove an enum value - use with care!
+     * @return null|boolean null if denied, true/false if success
+     */
+    public static function unset($key): bool
+    {
+        $allowed = !empty(static::$delete);
+        if (empty($allowed)) {
+            throw new \LogicException('Method not allowed.');
+        }
+        $values =& static::$values;
+        if (array_key_exists($key, $values)) {
+            unset($values[$key]);
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
      * Make sure that the enum keys have no SPACEs
      * Make sure the keys are strings
      * Set the case according to the settings
@@ -120,10 +170,14 @@ class Enum implements \Serializable
      * add array of extra values not existing already
      *
      * @param array|string $newValues
+     * @param null|boolean $overwrite allow over-write of values?
      * @return array static::$values
      */
-    public static function add($newValues): array
+    public static function add($newValues, $overwrite = null): array
     {
+        if (empty(static::$overwrite) && !empty($overwrite)) {
+            throw new \LogicException('Overwrite not allowed.');
+        }
         // if it's a string, convert to array
         if (is_string($newValues)) {
             $newValues = [$newValues => $newValues];
@@ -140,7 +194,10 @@ class Enum implements \Serializable
             }
             $k = str_replace(' ', '_', $k); // space converted for magic calls
             $k = !empty(static::$capitalize) ? strtoupper($k) : $k;
-            if (!array_key_exists($k, $values)) {
+            $overwrite = (null == $overwrite) ? static::$overwrite : $overwrite;
+            if (!empty($overwrite)) {
+                $values[$k] = $v;
+            } elseif (!array_key_exists($k, $values)) {
                 $values[$k] = $v;
             }
         }
