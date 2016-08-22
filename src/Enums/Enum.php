@@ -95,7 +95,6 @@ class Enum implements \Serializable
      *
      * @param boolean $caseSensitive
      * @param boolean $capitalize
-     * @param boolean $bool
      */
     public static function reset($caseSensitive = false, $capitalize = false)
     {
