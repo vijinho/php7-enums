@@ -169,13 +169,13 @@ class Enum implements \Serializable
     public static function key($value, $caseSensitive = null)
     {
         $values = static::$values;
-        // if case-sensitivity is not specified use the class boolean value
-        if (null === $caseSensitive) {
-            $caseSensitive = static::$caseSensitive;
-        }
         if (!is_array($value) && !is_object($value)) {
             if (is_string($value)) {
                 $value = strtoupper($value);
+                // if case-sensitivity is not specified use the class boolean value
+                if (null === $caseSensitive) {
+                    $caseSensitive = static::$caseSensitive;
+                }
                 if (empty($caseSensitive)) {
                     $values = array_map(function($value){
                         return strtoupper($value);
