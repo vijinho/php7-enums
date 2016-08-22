@@ -1,7 +1,14 @@
 build:
     environment:
         php: '7.0.0'
-
+    tests:
+        override:
+            -
+                command: 'phpunit --coverage-clover=tests/Enums/RunTest.ph'
+                coverage:
+                    file: 'tests/Enums/RunTest.php'
+                    format: 'clover'
+                    
 before_commands:
     - "composer install --prefer-source"
 
