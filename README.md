@@ -1,5 +1,7 @@
 # PHP7 Enums
 
+![Travis CI](https://travis-ci.org/vijinho/php7-enums.svg?branch=dev-master)
+
 This is an implementation for ENUM types in PHP7 which lives on github at [vijinho/php7-enums](https://github.com/vijinho/php7-enums). It's a little different from the other implementations I saw which didn't quite fit my needs and it uses quite a bit of PHP7 [magic](http://php.net/manual/en/language.oop5.magic.php) and [overloading](http://php.net/manual/en/language.oop5.overloading.php) to achieve the results I wanted.
 
 ## Quick Start
