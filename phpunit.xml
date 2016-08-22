@@ -1,7 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <phpunit bootstrap="tests/bootstrap.php" colors="true">
-  <testsuites>
-    <testsuite name="tests">
-      <directory>tests</directory>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="Enums Suite">
+            <directory>tests/Enums/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src/Enums/</directory>
+            <exclude>
+                <directory>./docs</directory>
+                <directory>./examples</directory>
+                <directory>./tests</directory>
+                <directory>./lib</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>

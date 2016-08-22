@@ -111,16 +111,6 @@ class Enum implements \Serializable
      */
     public static function delete($key)
     {
-        return static::unset($key);
-    }
-
-
-    /**
-     * Remove an enum value - use with care!
-     * @return null|boolean null if denied, true/false if success
-     */
-    public static function unset($key): bool
-    {
         $allowed = !empty(static::$delete);
         if (empty($allowed)) {
             throw new \LogicException('Method not allowed.');
