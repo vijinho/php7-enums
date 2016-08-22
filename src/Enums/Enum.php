@@ -191,6 +191,7 @@ class Enum implements \Serializable
                 $values[$k] = $v;
             }
         }
+        static::fixKeys();
         return static::$values;
     }
 
@@ -415,7 +416,8 @@ class Enum implements \Serializable
      * @return void
      */
     public function unserialize($data) {
-        static::$values = unserialize($data);
+        $data = unserialize($data);
+        static::$values = $data;
     }
 
 

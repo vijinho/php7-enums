@@ -20,6 +20,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
+        self::$enum->reset();
         self::$enum = null;
     }
 
