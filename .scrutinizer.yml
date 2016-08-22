@@ -48,7 +48,7 @@ tools:
                 - 'lib/*'
                 - 'examples/*'
 
-    php_code_coverage: true
+    php_code_coverage: 
         enabled: false
         filter:
             excluded_paths:
