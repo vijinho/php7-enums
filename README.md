@@ -1,6 +1,6 @@
 # PHP7 Enums
 
-![Travis CI](https://travis-ci.org/vijinho/php7-enums.svg?branch=dev-master)
+[![Travis CI](https://travis-ci.org/vijinho/php7-enums.svg?branch=dev-master)](https://travis-ci.org/vijinho/php7-enums)
 [![Build Status](https://scrutinizer-ci.com/g/vijinho/php7-enums/badges/build.png?b=dev-master)](https://scrutinizer-ci.com/g/vijinho/php7-enums/build-status/dev-master)
 [![Code Coverage](https://scrutinizer-ci.com/g/vijinho/php7-enums/badges/coverage.png?b=dev-master)](https://scrutinizer-ci.com/g/vijinho/php7-enums/?branch=dev-master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/vijinho/php7-enums/badges/quality-score.png?b=dev-master)](https://scrutinizer-ci.com/g/vijinho/php7-enums/?branch=dev-master)
