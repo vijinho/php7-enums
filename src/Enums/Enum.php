@@ -173,12 +173,14 @@ class Enum implements \Serializable
         if (null === $caseSensitive) {
             $caseSensitive = static::$caseSensitive;
         }
-        if (is_string($value)) {
-            if (empty($caseSensitive)) {
+        if (!is_array($value) && !is_object($value)) {
+            if (is_string($value)) {
                 $value = strtoupper($value);
-                $values = array_map(function($value){
-                    return strtoupper($value);
-                }, $values);
+                if (empty($caseSensitive)) {
+                    $values = array_map(function($value){
+                        return strtoupper($value);
+                    }, $values);
+                }
             }
             $keys = array_keys($values, $value);
             $count = count($keys);
