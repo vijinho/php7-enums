@@ -43,6 +43,14 @@ echo $e;
 echo $e->MERCEDES; // luxury
 echo $e->FERRARI(); // sports
 echo Enum::AUDI(); // Audi
+
+// add non-string value (array)
+echo "Example 17\n";
+$e(['trabant' => ['Germany', 'Eastern Europe']]);
+
+// get key by non-string
+echo $e->key(['Germany', 'Eastern Europe']); // trabant
+
 ```
 
 This is how it ought to be used:

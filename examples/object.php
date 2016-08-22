@@ -103,3 +103,12 @@ echo $e->key('fast');
 // get keys only for enum
 echo "Example 16\n";
 print_r($e->keys());
+
+// add non-string value
+echo "Example 17\n";
+$e(['trabant' => ['Germany', 'Eastern Europe']]);
+echo $e;
+
+// get key by non-string
+echo "Example 18\n";
+echo $e->key(['Germany', 'Eastern Europe']); // trabant

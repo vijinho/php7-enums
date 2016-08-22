@@ -173,18 +173,26 @@ class Enum implements \Serializable
         if (null === $caseSensitive) {
             $caseSensitive = static::$caseSensitive;
         }
-        if (empty($caseSensitive)) {
-            $value = strtoupper($value);
-            $values = array_map(function($value){
-                return strtoupper($value);
-            }, $values);
+        if (is_string($value)) {
+            if (empty($caseSensitive)) {
+                $value = strtoupper($value);
+                $values = array_map(function($value){
+                    return strtoupper($value);
+                }, $values);
+            }
+            $keys = array_keys($values, $value);
+            $count = count($keys);
+            if (0 === $count) {
+                throw new \InvalidArgumentException(sprintf("Key for value '%s' does not exist.", print_r($value,1)));
+            }
+            return count($keys) > 1 ? $keys : $keys[0];
+        } elseif (is_array($value)) {
+            $search = array_search($value, $values);
+            if (false === $search) {
+                throw new \InvalidArgumentException(sprintf("Key for value '%s' does not exist.", print_r($value,1)));
+            }
+            return $search;
         }
-        $keys = array_keys($values, $value);
-        $count = count($keys);
-        if (0 === $count) {
-            throw new \InvalidArgumentException(sprintf("Key for value '%s' does not exist.", print_r($value,1)));
-        }
-        return count($keys) > 1 ? $keys : $keys[0];
     }
 
 
