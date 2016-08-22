@@ -32,6 +32,7 @@ class Enum implements \Serializable
      */
     protected static $caseSensitive = false;
 
+
     /**
      * initialize with array of additional values not existing already
      *
@@ -39,18 +40,70 @@ class Enum implements \Serializable
      */
     public function __construct(array $newValues = [])
     {
+        static::fixKeys();
+        return static::add($newValues);
+    }
+
+
+    /**
+     * Set case-sensitivity when searching
+     *
+     * @param boolean $bool
+     */
+    public static function caseSensitive($bool = false)
+    {
+        static::$caseSensitive = !empty($bool);
+    }
+
+
+    /**
+     * Set capitalization for enum keys
+     *
+     * @param boolean $bool
+     */
+    public static function capitalize($bool = false)
+    {
+        static::$capitalize = !empty($bool);
+        if (static::$capitalize) {
+            static::$values = array_change_key_case(static::$values, CASE_UPPER);
+        }
+    }
+
+
+    /**
+     * Clear all data - use with care!
+     *
+     * @param boolean $caseSensitive
+     * @param boolean $capitalize
+     * @param boolean $bool
+     */
+    public static function reset($caseSensitive = false, $capitalize = false)
+    {
+        static::$values = [];
+        static::$caseSensitive = $caseSensitive;
+        static::$capitalize = $capitalize;
+    }
+
+
+    /**
+     * Make sure that the enum keys have no SPACEs
+     * Make sure the keys are strings
+     * Set the case according to the settings
+     */
+    public static function fixKeys()
+    {
         $values =& static::$values;
 
         foreach ($values as $k => $v) {
             $oldKey = $k;
-            $k = str_replace(' ', '_', $v); // space converted for magic calls
             if (!is_string($k)) {
                 if (!is_string($v)) {
                     throw new \UnexpectedValueException(sprintf("Key '%s' for value '%s' is not a string!", print_r($k,1), print_r($v,1)));
                 }
                 // if the key is not a string, use the value if it is a string
-                $k = str_replace(' ', '_', $v); // space converted for magic calls
+                $k = $v;
             }
+            $k = str_replace(' ', '_', $k); // space converted for magic calls
             if ($oldKey !== $k) {
                 unset($values[$oldKey]);
                 $values[$k] = $v;
@@ -60,8 +113,6 @@ class Enum implements \Serializable
         if (!empty(static::$capitalize)) {
             $values = array_change_key_case($values, CASE_UPPER);
         }
-
-        return static::add($newValues);
     }
 
 
@@ -80,14 +131,14 @@ class Enum implements \Serializable
         $values =& static::$values;
         foreach ($newValues as $k => $v) {
             $oldKey = $k;
-            $k = str_replace(' ', '_', $v); // space converted for magic calls
             if (!is_string($k)) {
                 if (!is_string($v)) {
                     throw new \UnexpectedValueException(sprintf("Key '%s' for value '%s' is not a string!", print_r($k,1), print_r($v,1)));
                 }
                 // if the key is not a string, use the value if it is a string
-                $k = str_replace(' ', '_', $v); // space converted for magic calls
+                $k = $v;
             }
+            $k = str_replace(' ', '_', $k); // space converted for magic calls
             $k = !empty(static::$capitalize) ? strtoupper($k) : $k;
             if (!array_key_exists($k, $values)) {
                 $values[$k] = $v;
@@ -112,15 +163,28 @@ class Enum implements \Serializable
      * get key for the given value
      *
      * @param mixed $value
-     * @return string key
+     * @param null|bool $caseSensitive search is case sensitive?
+     * @return string|array key(s)
      */
-    public static function key($value): string
+    public static function key($value, $caseSensitive = null)
     {
-        $key = array_search($value, static::$values);
-        if ($key === false) {
+        $values = static::$values;
+        // if case-sensitivity is not specified use the class boolean value
+        if (null === $caseSensitive) {
+            $caseSensitive = static::$caseSensitive;
+        }
+        if (empty($caseSensitive)) {
+            $value = strtoupper($value);
+            $values = array_map(function($value){
+                return strtoupper($value);
+            }, $values);
+        }
+        $keys = array_keys($values, $value);
+        $count = count($keys);
+        if (0 === $count) {
             throw new \InvalidArgumentException(sprintf("Key for value '%s' does not exist.", print_r($value,1)));
         }
-        return $key;
+        return count($keys) > 1 ? $keys : $keys[0];
     }
 
 
@@ -238,6 +302,19 @@ class Enum implements \Serializable
         return json_encode(static::$values, JSON_PRETTY_PRINT);
     }
 
+
+    /**
+     * return the values as a string
+     * method allows outputting values as a string when called statically
+     *
+     * @return string json_encode(static::$values)
+     */
+    public static function toString(): string
+    {
+        return json_encode(static::$values, JSON_PRETTY_PRINT);
+    }
+
+
     /**
      * serialize enum values
      *
@@ -262,22 +339,31 @@ class Enum implements \Serializable
 
 
     /**
+     * returned dump values as array
+     *
+     * @return array
+     */
+    public static function var_dump(): array
+    {
+        $capitalize = static::$capitalize;
+        $caseSensitive = static::$caseSensitive;
+        $values = static::$values;
+        return [
+            'capitalise' => $capitalize,
+            'case_sensitive' => $caseSensitive,
+            'values' => $values
+        ];
+    }
+
+
+    /**
      * returned values when called with var_dump()
-     * only works with php 5.6+ but yet
-     * for some reason this doesn't work, php bug?
      *
      * @return array debug info
      * @link http://php.net/manual/en/language.oop5.magic.php#object.debuginfo
      */
-/*
     public function __debugInfo(): array
     {
-        return [
-            'capitalise' => static::capitalize,
-            'case_sensitive' => static::case_sensitive,
-            'values' => static::values
-        ];
+        return static::var_dump();
     }
-*/
-
 }
