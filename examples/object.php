@@ -72,7 +72,7 @@ echo($e::banana());
 // uses __isset()
 echo "Example 11\n";
 echo isset($e->apple) == false ? "No Apple!" : "Yes Apple!";
-echo isset($e->banana) == false ? "No Banana!" : "Yes Banana!";
+echo isset($e->nectarine) == false ? "No Nectarine!" : "Yes Nectarine!";
 
 // serialization to/from array
 // uses serialize/unserialize (from class implements Serializable)

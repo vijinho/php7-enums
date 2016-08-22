@@ -281,7 +281,9 @@ class Enum implements \Serializable
      */
     public function __isset($key)
     {
-        return array_key_exists(strtoupper($key), array_change_key_case(static::$values, CASE_UPPER));
+        return empty(static::$caseSensitive) ?
+            array_key_exists(strtoupper($key), array_change_key_case(static::$values, CASE_UPPER)) :
+            array_key_exists($key, static::$values);
     }
 
 
