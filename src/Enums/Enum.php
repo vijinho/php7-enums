@@ -199,6 +199,28 @@ class Enum implements \Serializable
 
 
     /**
+     * count values
+     *
+     * @return int number of values
+     */
+    public static function count(): int
+    {
+        return count(static::$values);
+    }
+
+
+    /**
+     * count values
+     *
+     * @return int number of values
+     */
+    public static function sizeof(): int
+    {
+        return static::count();
+    }
+
+
+    /**
      * get existing values
      *
      * @return array static::$values

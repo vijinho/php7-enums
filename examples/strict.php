@@ -31,3 +31,4 @@ echo $s::KILOBYTE(); // 8192
 echo $s->value('TERABYTE'); // 8796093022208
 echo Storage::value('BYTE'); // 8
 echo Storage::BYTE(); // 8
+echo Storage::sizeof(); // 6
