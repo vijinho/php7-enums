@@ -151,8 +151,12 @@ $f(['pineapple' => 'Pineapple']); // add another new fruit
 $f->add(['potato' => 'Not a fruit']);
 var_dump($f); // special var_dump magic!
 
-object(Fruits)#3 (3) {
-  ["capitalise"]=>
+object(Fruits)#5 (5) {
+  ["overwrite"]=>
+  bool(false)
+  ["delete"]=>
+  bool(false)
+  ["capitalize"]=>
   bool(false)
   ["caseSensitive"]=>
   bool(false)

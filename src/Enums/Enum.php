@@ -436,10 +436,14 @@ class Enum implements \Serializable
      */
     public static function var_dump(): array
     {
+        $delete = static::$delete;
+        $overwrite = static::$overwrite;
         $capitalize = static::$capitalize;
         $caseSensitive = static::$caseSensitive;
         $values = static::$values;
         return [
+            'overwrite' => $overwrite,
+            'delete' => $delete,
             'capitalise' => $capitalize,
             'caseSensitive' => $caseSensitive,
             'values' => $values
