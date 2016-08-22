@@ -61,7 +61,7 @@ class Enum implements \Serializable
     public function __construct(array $newValues = [])
     {
         static::fixKeys();
-        return static::add($newValues);
+        static::add($newValues);
     }
 
 
