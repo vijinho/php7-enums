@@ -12,7 +12,7 @@ use vijinho\Enums\Enum;
 class RunTest extends TestCase
 {
     /**
-     * @covers Enums\Enum::testCapitalize
+     * Test boolean $capitalize setting
      */
     public function testCapitalize()
     {
@@ -24,7 +24,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testCaseSensitive
+     * Test boolean $caseSensitive setting
      * @depends testCapitalize
      */
     public function testCaseSensitive()
@@ -141,9 +141,9 @@ class RunTest extends TestCase
      */
     public function testUnserialize()
     {
-        $e = static::$enum;
+        $e          = static::$enum;
         $serialized = serialize($e);
-        $object = unserialize($serialized);
+        $object     = unserialize($serialized);
         $this->assertEquals(get_class($object), 'vijinho\Enums\Enum');
         $this->assertEquals($object->count(), 3);
         $keys = $object->values();
@@ -193,9 +193,9 @@ class RunTest extends TestCase
         $e = static::$enum;
         $e->reset();
         $values = [
-            'one' => 1,
-            'two' => 2,
-            'three' => 3
+            'one'   => 1,
+            'two'   => 2,
+            'three' => 3,
         ];
         $e->add($values);
         $this->assertEquals($values, $e->values());
@@ -209,9 +209,9 @@ class RunTest extends TestCase
         $e = static::$enum;
         $e->reset();
         $values = [
-            'one' => 1,
-            'two' => 2,
-            'three' => 3
+            'one'   => 1,
+            'two'   => 2,
+            'three' => 3,
         ];
         $e->add($values);
         $this->assertEquals($e->values(), $values);
@@ -274,7 +274,7 @@ class RunTest extends TestCase
         $e = static::$enum;
         $e->reset();
         $values = [
-            'one' => 1
+            'one' => 1,
         ];
         $e->add($values);
         $this->assertEquals($e->one(), 1);
@@ -288,7 +288,7 @@ class RunTest extends TestCase
         $e = static::$enum;
         $e->reset();
         $values = [
-            'one' => 1
+            'one' => 1,
         ];
         $e($values);
         $this->assertEquals($e->value('one'), 1);
@@ -302,7 +302,7 @@ class RunTest extends TestCase
         $e = static::$enum;
         $e->reset();
         $values = [
-            'one' => 1
+            'one' => 1,
         ];
         $e->add($values);
         $this->assertTrue(isset($e->one));
@@ -316,7 +316,7 @@ class RunTest extends TestCase
         $e = static::$enum;
         $e->reset();
         $values = [
-            'one' => 1
+            'one' => 1,
         ];
         $e->add($values);
         $this->assertEquals((string) $e, json_encode($values, JSON_PRETTY_PRINT));
