@@ -173,7 +173,6 @@ class Enum implements \Serializable
         }
         $values =& static::$values;
         foreach ($newValues as $k => $v) {
-            $oldKey = $k;
             if (!is_string($k)) {
                 if (!is_string($v)) {
                     throw new \UnexpectedValueException(sprintf("Key '%s' for value '%s' is not a string!", print_r($k,1), print_r($v,1)));
@@ -188,9 +187,6 @@ class Enum implements \Serializable
                 $values[$k] = $v;
             } elseif (!array_key_exists($k, $values)) {
                 $values[$k] = $v;
-            }
-            if ($oldKey !== $k) {
-                unset($values[$k]);
             }
         }
         static::fixKeys();
