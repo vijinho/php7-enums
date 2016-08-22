@@ -189,6 +189,9 @@ class Enum implements \Serializable
             } elseif (!array_key_exists($k, $values)) {
                 $values[$k] = $v;
             }
+            if ($oldKey !== $k) {
+                unset($values[$k]);
+            }
         }
         static::fixKeys();
         return static::$values;
