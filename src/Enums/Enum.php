@@ -322,7 +322,7 @@ class Enum implements \Serializable
      * get value named the same as the method called
      * method allows getting value from an object with $object->key()
      *
-     * @param string $method
+     * @param string $key the method called is used as the key
      * @param array $args
      * @return mixed static::$values[$key]
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.call
@@ -336,7 +336,7 @@ class Enum implements \Serializable
      * get value named the same as the method called statically
      * method allows getting value from an object with $object::key()
      *
-     * @param string $method
+     * @param string $key the method called is used as the key
      * @param array $args
      * @return mixed static::$values[$key]
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.callstatic
