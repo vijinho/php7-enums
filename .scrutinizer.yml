@@ -41,7 +41,7 @@ tools:
                 - 'lib/*'
                 - 'examples/*'
 
-    php_code_coverage:
+    php_code_coverage: true
         enabled: false
         filter:
             excluded_paths:
@@ -114,7 +114,7 @@ tools:
     # PHP Mess Detector
     # It takes a given PHP source code base and look for several potential problems within that source.
     # http://phpmd.org
-    php_mess_detector:
+    php_mess_detector: true
         enabled: true
         config:
             rulesets:
