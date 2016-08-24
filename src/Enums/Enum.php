@@ -129,8 +129,9 @@ class Enum implements \Serializable
      * Make sure the keys are strings
      * Set the case according to the settings
      *
+     * @param return array static::$values
      */
-    public static function fixKeys()
+    public static function fixKeys(): array
     {
         $values = static::$values;
         foreach ($values as $k => $v) {
