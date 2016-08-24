@@ -114,7 +114,7 @@ class Enum implements \Serializable
         if (empty($allowed)) {
             throw new \LogicException('Method not allowed.');
         }
-        $values =& static::$values;
+        $values = & static::$values;
         if (array_key_exists($key, $values)) {
             unset($values[$key]);
         } else {
@@ -134,7 +134,9 @@ class Enum implements \Serializable
      */
     public static function fixKeys(array $values = [])
     {
-        $values = empty($values) ? static::$values : $values;
+        if (empty($values)) {
+            $values = & static::$values;
+        }
 
         foreach ($values as $k => $v) {
             unset($values[$k]);
@@ -170,7 +172,7 @@ class Enum implements \Serializable
             throw new \LogicException('Overwrite not allowed.');
         }
 
-        $values =& static::$values;
+        $values = & static::$values;
 
         // if it's a string, convert to array
         if (is_string($newValues)) {
@@ -219,7 +221,7 @@ class Enum implements \Serializable
                     $caseSensitive = static::$caseSensitive;
                 }
                 if (empty($caseSensitive)) {
-                    $values = array_map(function($value){
+                    $values = array_map(function($value) {
                         return strtoupper($value);
                     }, $values);
                 }
@@ -227,13 +229,13 @@ class Enum implements \Serializable
             $keys = array_keys($values, $value);
             $count = count($keys);
             if (0 === $count) {
-                throw new \InvalidArgumentException(sprintf("Key for value '%s' does not exist.", print_r($value,1)));
+                throw new \InvalidArgumentException(sprintf("Key for value '%s' does not exist.", print_r($value, 1)));
             }
             return count($keys) > 1 ? $keys : $keys[0];
         } elseif (is_array($value)) {
             $search = array_search($value, $values);
             if (false === $search) {
-                throw new \InvalidArgumentException(sprintf("Key for value '%s' does not exist.", print_r($value,1)));
+                throw new \InvalidArgumentException(sprintf("Key for value '%s' does not exist.", print_r($value, 1)));
             }
             return $search;
         }
@@ -292,7 +294,7 @@ class Enum implements \Serializable
             $values = array_change_key_case($values, CASE_UPPER);
         }
         if (false === array_key_exists($key, $values)) {
-            throw new \InvalidArgumentException(sprintf("Value for key '%s' does not exist.", print_r($key,1)));
+            throw new \InvalidArgumentException(sprintf("Value for key '%s' does not exist.", print_r($key, 1)));
         }
         return $values[$key];
     }
@@ -348,8 +350,7 @@ class Enum implements \Serializable
     public function __isset($key)
     {
         return empty(static::$caseSensitive) ?
-            array_key_exists(strtoupper($key), array_change_key_case(static::$values, CASE_UPPER)) :
-            array_key_exists($key, static::$values);
+            array_key_exists(strtoupper($key), array_change_key_case(static::$values, CASE_UPPER)) : array_key_exists($key, static::$values);
     }
 
 
