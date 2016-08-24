@@ -134,31 +134,26 @@ class Enum implements \Serializable
      */
     public static function fixKeys(array $values = [])
     {
-        if (empty($values)) {
-            $values =& static::$values;
-        }
+        $values = empty($values) ? static::$values : $values;
 
         foreach ($values as $k => $v) {
-            $oldKey = $k;
+            unset($values[$k]);
             if (!is_string($k)) {
                 if (!is_string($v)) {
                     throw new \UnexpectedValueException(sprintf("Key '%s' for value '%s' is not a string!", print_r($k,1), print_r($v,1)));
+                } else {
+                    // if the key is not a string, use the value if it is a string
+                    $k = $v;
                 }
-                // if the key is not a string, use the value if it is a string
-                $k = $v;
             }
             $k = str_replace(' ', '_', $k); // space converted for magic calls
-            if ($oldKey !== $k) {
-                unset($values[$oldKey]);
-                $values[$k] = $v;
-            }
+            $values[$k] = $v;
         }
 
-        if (!empty(static::$capitalize)) {
-            $values = array_change_key_case($values, CASE_UPPER);
-        }
+        static::$values = empty(static::$capitalize) ?
+            $values : array_change_key_case($values, CASE_UPPER);
 
-        return $values;
+        return static::$values;
     }
 
 
