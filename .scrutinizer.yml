@@ -3,10 +3,12 @@ build:
         php: '7.0.0'
 
     tests:
-        command: 'phpunit --coverage-clover=build/logs/coverage.xml tests/Enums/RunTest.php'
-        coverage:
-            file: 'build/logs/coverage.xml'
-            format: 'clover'
+        override:
+            -
+                command: 'phpunit --coverage-text --coverage-clover=coverage.clover tests/Enums/RunTest.php'
+                coverage:
+                    file: 'coverage.clover'
+                    format: 'php-clover'
 
 before_commands:
     - "composer install --prefer-source"
