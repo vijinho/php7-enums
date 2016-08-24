@@ -129,7 +129,6 @@ class Enum implements \Serializable
      * Make sure the keys are strings
      * Set the case according to the settings
      *
-     * @param return $values
      */
     public static function fixKeys()
     {
@@ -138,7 +137,7 @@ class Enum implements \Serializable
             unset($values[$k]);
             if (!is_string($k)) {
                 if (!is_string($v)) {
-                    throw new \UnexpectedValueException(sprintf("Key '%s' for value '%s' is not a string!", print_r($k,1), print_r($v,1)));
+                    throw new \UnexpectedValueException(sprintf("Key '%s' for value '%s' is not a string!", print_r($k, 1), print_r($v, 1)));
                 } else {
                     // if the key is not a string, use the value if it is a string
                     $k = $v;
