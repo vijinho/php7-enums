@@ -129,15 +129,11 @@ class Enum implements \Serializable
      * Make sure the keys are strings
      * Set the case according to the settings
      *
-     * @param array $values
      * @param return $values
      */
-    public static function fixKeys(array $values = [])
+    public static function fixKeys()
     {
-        if (empty($values)) {
-            $values = & static::$values;
-        }
-
+        $values = static::$values;
         foreach ($values as $k => $v) {
             unset($values[$k]);
             if (!is_string($k)) {
@@ -178,7 +174,6 @@ class Enum implements \Serializable
         if (is_string($newValues)) {
             $newValues = [$newValues => $newValues];
         }
-        $newValues = static::fixKeys($newValues);
 
         foreach ($newValues as $k => $v) {
             $overwrite = (null == $overwrite) ? static::$overwrite : $overwrite;
