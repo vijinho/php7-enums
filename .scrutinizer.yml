@@ -1,14 +1,13 @@
 build:
     environment:
         php: '7.0.0'
-#    tests:
-#        override:
-#            -
-#                command: 'phpunit --coverage-clover=tests/Enums/RunTest.ph'
-#                coverage:
-#                    file: 'tests/Enums/RunTest.php'
-#                    format: 'clover'
-                    
+    tests:
+        override:
+            command: 'phpunit --coverage-clover=tmp/coverage.xml tests/Enums/RunTest.php'
+            coverage:
+                file: 'tmp/coverage.xml'
+                format: 'clover'
+
 before_commands:
     - "composer install --prefer-source"
 
@@ -36,9 +35,8 @@ checks:
         fix_identation_4spaces: true
         fix_doc_comments: true
 tools:
-
     external_code_coverage:
-        enabled: false
+        enabled: true
         timeout: 1800
         runs: 4
         filter:
@@ -48,7 +46,7 @@ tools:
                 - 'lib/*'
                 - 'examples/*'
 
-    php_code_coverage: 
+    php_code_coverage:
         enabled: false
         filter:
             excluded_paths:
@@ -121,7 +119,7 @@ tools:
     # PHP Mess Detector
     # It takes a given PHP source code base and look for several potential problems within that source.
     # http://phpmd.org
-    php_mess_detector: 
+    php_mess_detector:
         enabled: true
         config:
             rulesets:

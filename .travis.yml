@@ -1,27 +1,30 @@
-language: php
 sudo: false
 
+language: php
+
 php:
-  - "7.0"
+    - "7.0"
 
 env:
-  - COMPOSER_FLAGS="--prefer-lowest"
+    - COMPOSER_FLAGS="--prefer-lowest"
 
-script: phpunit
+script:
+    - phpunit
+    - phpunit --coverage-clover=tmp/coverage.xml tests/Enums/RunTest.php
 
 before_script:
     - travis_retry composer self-update
     - travis_retry composer update --no-interaction --prefer-source --prefer-stable ${COMPOSER_FLAGS}
 
-#after_script:
-#    - wget https://scrutinizer-ci.com/ocular.phar
-#    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+after_script:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover tmp/coverage.xml
 
 install:
-  - alias composer=composer\ -n && composer selfupdate
-  - composer validate
-  - composer --prefer-source install
+    - alias composer=composer\ -n && composer selfupdate
+    - composer validate
+    - composer --prefer-source install
 
 cache:
-  directories:
-    - $HOME/.composer/cache
+    directories:
+        - $HOME/.composer/cache

@@ -45,7 +45,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testCount
+     * @covers \vijinho\Enums\Enum::Count
      */
     public function testCount()
     {
@@ -59,7 +59,7 @@ class RunTest extends TestCase
      * By default this delete() will fail because Enum::$delete = false
      * meaning delete is not allowed
      *
-     * @covers Enums\Enum::testDelete
+     * @covers \vijinho\Enums\Enum::delete
      * @depends testCount
      */
     public function testDelete()
@@ -73,7 +73,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testFixKeys
+     * @covers \vijinho\Enums\Enum::fixKeys
      */
     public function testFixKeys()
     {
@@ -84,7 +84,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testKey
+     * @covers \vijinho\Enums\Enum::key
      */
     public function testKey()
     {
@@ -96,7 +96,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testKeys
+     * @covers \vijinho\Enums\Enum::keys
      */
     public function testKeys()
     {
@@ -111,7 +111,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testReset
+     * @covers \vijinho\Enums\Enum::reset
      * @depends testKeys
      */
     public function testReset()
@@ -123,7 +123,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testSerialize
+     * @covers \vijinho\Enums\Enum::serialize
      */
     public function testSerialize()
     {
@@ -136,7 +136,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testUnserialize
+     * @covers \vijinho\Enums\Enum::unserialize
      * @depends testSerialize
      */
     public function testUnserialize()
@@ -153,7 +153,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testSizeof
+     * @covers \vijinho\Enums\Enum::sizeof
      */
     public function testSizeof()
     {
@@ -164,7 +164,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testToString
+     * @covers \vijinho\Enums\Enum::toString
      */
     public function testToString()
     {
@@ -176,7 +176,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testValue
+     * @covers \vijinho\Enums\Enum::value
      * @depends testToString
      */
     public function testValue()
@@ -186,7 +186,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testValues
+     * @covers \vijinho\Enums\Enum::values
      */
     public function testValues()
     {
@@ -202,7 +202,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::testVar_dump
+     * @covers \vijinho\Enums\Enum::var_dump
      */
     public function testVar_dump()
     {
@@ -218,7 +218,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::test__call
+     * @covers \vijinho\Enums\Enum::__call
      */
     public function test__call()
     {
@@ -229,7 +229,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::test__callStatic
+     * @covers \vijinho\Enums\Enum::__callStatic
      */
     public function test__callStatic()
     {
@@ -241,7 +241,7 @@ class RunTest extends TestCase
     /**
      * Test fails on Travis, so disabled!
      *
-     * @covers Enums\Enum::test__debugInfo
+     * @covers \vijinho\Enums\Enum::__debugInfo
      */
     public function test__debugInfo()
     {
@@ -267,7 +267,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::test__get
+     * @covers \vijinho\Enums\Enum::__get
      */
     public function test__get()
     {
@@ -281,7 +281,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::test__invoke
+     * @covers \vijinho\Enums\Enum::__invoke
      */
     public function test__invoke()
     {
@@ -295,7 +295,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::test__isset
+     * @covers \vijinho\Enums\Enum::__isset
      */
     public function test__isset()
     {
@@ -309,7 +309,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Enums\Enum::test__toString
+     * @covers \vijinho\Enums\Enum::__toString
      */
     public function test__toString()
     {
