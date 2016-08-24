@@ -5,23 +5,26 @@ language: php
 php:
     - "7.0"
 
+env:
+  - COMPOSER_OPTS="--prefer-stable"
+
 script:
-#    - phpunit
-    - phpunit --coverage-clover=build/logs/clover.xml tests/Enums/RunTest.php tests/Enums/RunTest.php
+#  - phpunit
+  - phpunit --coverage-text --coverage-clover=coverage.clover tests/Enums/RunTest.php
 
 before_script:
-    - travis_retry composer self-update
-    - travis_retry composer update --no-interaction --prefer-source --prefer-stable
+  - travis_retry composer self-update
+  - travis_retry composer update $COMPOSER_OPTS
 
 after_script:
-    - wget https://scrutinizer-ci.com/ocular.phar
-    - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 install:
-    - alias composer=composer\ -n && composer selfupdate
-    - composer validate
-    - composer --prefer-source install
+  - alias composer=composer\ -n && composer selfupdate
+  - composer validate
+  - composer --prefer-source install
 
 cache:
-    directories:
-        - $HOME/.composer/cache
+  directories:
+    - $HOME/.composer/cache
