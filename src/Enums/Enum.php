@@ -128,10 +128,15 @@ class Enum implements \Serializable
      * Make sure that the enum keys have no SPACEs
      * Make sure the keys are strings
      * Set the case according to the settings
+     *
+     * @param array $values
+     * @param return $values
      */
-    public static function fixKeys()
+    public static function fixKeys(array $values = [])
     {
-        $values =& static::$values;
+        if (empty($values)) {
+            $values =& static::$values;
+        }
 
         foreach ($values as $k => $v) {
             $oldKey = $k;
@@ -152,6 +157,8 @@ class Enum implements \Serializable
         if (!empty(static::$capitalize)) {
             $values = array_change_key_case($values, CASE_UPPER);
         }
+
+        return $values;
     }
 
 
@@ -167,21 +174,16 @@ class Enum implements \Serializable
         if (empty(static::$overwrite) && !empty($overwrite)) {
             throw new \LogicException('Overwrite not allowed.');
         }
+
+        $values =& static::$values;
+
         // if it's a string, convert to array
         if (is_string($newValues)) {
             $newValues = [$newValues => $newValues];
         }
-        $values =& static::$values;
+        $newValues = static::fixKeys($newValues);
+
         foreach ($newValues as $k => $v) {
-            if (!is_string($k)) {
-                if (!is_string($v)) {
-                    throw new \UnexpectedValueException(sprintf("Key '%s' for value '%s' is not a string!", print_r($k,1), print_r($v,1)));
-                }
-                // if the key is not a string, use the value if it is a string
-                $k = $v;
-            }
-            $k = str_replace(' ', '_', $k); // space converted for magic calls
-            $k = !empty(static::$capitalize) ? strtoupper($k) : $k;
             $overwrite = (null == $overwrite) ? static::$overwrite : $overwrite;
             if (!empty($overwrite)) {
                 $values[$k] = $v;
@@ -189,8 +191,7 @@ class Enum implements \Serializable
                 $values[$k] = $v;
             }
         }
-        static::fixKeys();
-        return static::$values;
+        return static::fixKeys();
     }
 
 
