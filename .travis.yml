@@ -5,23 +5,17 @@ language: php
 php:
     - "7.0"
 
-env:
-    - COMPOSER_FLAGS="--prefer-lowest"
-    - CLOVER_FILE="build/logs/clover.xml"
-    - TESTS_FILE="tests/Enums/RunTest.php"
-    - PHPUNIT_FLAGS="--coverage-clover ${CLOVER_FILE}"
-
 script:
-    - phpunit
-    - phpunit --coverage-clover=${CLOVER_FILE} ${TESTS_FILE}
+#    - phpunit
+    - phpunit --coverage-clover=build/logs/clover.xml tests/Enums/RunTest.php tests/Enums/RunTest.php
 
 before_script:
     - travis_retry composer self-update
-    - travis_retry composer update --no-interaction --prefer-source --prefer-stable ${COMPOSER_FLAGS}
+    - travis_retry composer update --no-interaction --prefer-source --prefer-stable
 
 after_script:
     - wget https://scrutinizer-ci.com/ocular.phar
-    - php ocular.phar code-coverage:upload --format=php-clover ${CLOVER_FILE}
+    - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
 install:
     - alias composer=composer\ -n && composer selfupdate
