@@ -38,7 +38,7 @@ checks:
         fix_doc_comments: true
 tools:
     external_code_coverage:
-        enabled: true
+        enabled: false
         timeout: 1800
         runs: 4
         filter:
@@ -49,7 +49,7 @@ tools:
                 - 'examples/*'
 
     php_code_coverage:
-        enabled: false
+        enabled: true
         filter:
             excluded_paths:
                 - 'docs/*'
