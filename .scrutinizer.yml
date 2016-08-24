@@ -3,9 +3,10 @@ build:
         php: '7.0.0'
     tests:
         override:
-            command: 'phpunit --coverage-clover=tmp/coverage.xml tests/Enums/RunTest.php'
+            -
+            command: 'phpunit --coverage-clover=build/logs/coverage.xml tests/Enums/RunTest.php'
             coverage:
-                file: 'tmp/coverage.xml'
+                file: 'build/logs/coverage.xml'
                 format: 'clover'
 
 before_commands:
