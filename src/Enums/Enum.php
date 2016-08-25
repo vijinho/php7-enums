@@ -203,7 +203,7 @@ class Enum implements \Serializable
      *
      * @param mixed $value
      * @param null|bool $caseSensitive search is case sensitive?
-     * @return string|array key(s)
+     * @return integer|string|array<integer|string>|null
      */
     public static function key($value, $caseSensitive = null)
     {
@@ -302,7 +302,8 @@ class Enum implements \Serializable
      * @return mixed static::$values[$key]
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.get
      */
-    public function __get(string $key) {
+    public function __get(string $key)
+    {
         return static::value($key);
     }
 
@@ -316,7 +317,8 @@ class Enum implements \Serializable
      * @return mixed static::$values[$key]
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.call
      */
-    public function __call(string $key, array $args = []) {
+    public function __call(string $key, array $args = [])
+    {
         return static::value($key);
     }
 
@@ -330,7 +332,8 @@ class Enum implements \Serializable
      * @return mixed static::$values[$key]
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.callstatic
      */
-    public static function __callStatic(string $key, array $args = []) {
+    public static function __callStatic(string $key, array $args = [])
+    {
         return static::value($key);
     }
 
@@ -353,10 +356,10 @@ class Enum implements \Serializable
      * when called as a function this class will add new values and return the result
      *
      * @param array $newValues
-     * @return boolean
+     * @return array
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.invoke
      */
-    public function __invoke($newValues)
+    public function __invoke($newValues): array
     {
         return static::add($newValues);
     }
@@ -405,7 +408,8 @@ class Enum implements \Serializable
      * @link http://php.net/manual/en/class.serializable.php
      * @return void
      */
-    public function unserialize($data) {
+    public function unserialize($data)
+    {
         $data = unserialize($data);
         static::$values = $data;
     }
