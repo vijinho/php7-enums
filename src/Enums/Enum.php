@@ -406,7 +406,7 @@ class Enum implements \Serializable
      *
      * @return string enum values serialized
      * @link http://php.net/manual/en/class.serializable.php
-     * @return void
+     * @return string|null
      */
     public function unserialize($data)
     {
