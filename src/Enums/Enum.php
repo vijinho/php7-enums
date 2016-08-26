@@ -205,7 +205,7 @@ class Enum implements \Serializable, \ArrayAccess
      *
      * @param mixed $value
      * @param null|bool $caseSensitive search is case sensitive?
-     * @return string|array key(s)
+     * @return integer|string|array<integer|string>|null key(s)
      */
     public static function key($value, $caseSensitive = null)
     {
@@ -355,7 +355,7 @@ class Enum implements \Serializable, \ArrayAccess
      * when called as a function this class will add new values and return the result
      *
      * @param array $newValues
-     * @return boolean
+     * @return array static::$values
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.invoke
      */
     public function __invoke($newValues)
@@ -438,7 +438,7 @@ class Enum implements \Serializable, \ArrayAccess
     /**
      * returned values when called with var_dump()
      *
-     * @return array debug info
+     * @return array|null debug info
      * @link http://php.net/manual/en/language.oop5.magic.php#object.debuginfo
      */
     public function __debugInfo(): array
