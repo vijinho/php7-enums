@@ -467,8 +467,7 @@ class Enum implements \Serializable, \ArrayAccess
      * Implement Array offsetExists
      *
      * @param string $key the key to set
-     * @param mixed $value the value to set
-     * @return array debug info
+     * @return boolean debug info
      * @link http://php.net/manual/en/class.arrayaccess.php
      */
     public function offsetExists($key) {
@@ -480,7 +479,6 @@ class Enum implements \Serializable, \ArrayAccess
      * Implement Array offsetUnset
      *
      * @param string $key the key to set
-     * @param mixed $value the value to set
      * @return array debug info
      * @link http://php.net/manual/en/class.arrayaccess.php
      */
@@ -496,7 +494,6 @@ class Enum implements \Serializable, \ArrayAccess
      * Implement Array offsetGet
      *
      * @param string $key the key to set
-     * @param mixed $value the value to set
      * @return array debug info
      * @link http://php.net/manual/en/class.arrayaccess.php
      */
