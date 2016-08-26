@@ -321,4 +321,26 @@ class RunTest extends TestCase
         $e->add($values);
         $this->assertEquals((string) $e, json_encode($values, JSON_PRETTY_PRINT));
     }
+
+    /**
+     * @covers \vijinho\Enums\Enum::offsetSet
+     * @covers \vijinho\Enums\Enum::offsetExists
+     * @covers \vijinho\Enums\Enum::offsetUnset
+     * @covers \vijinho\Enums\Enum::offsetGet
+     * @link http://php.net/manual/en/class.arrayaccess.php
+     */
+    public function testArrayAccess()
+    {
+        $e = static::$enum;
+        $e->reset();
+        $values = [
+            'apple', 'pear', 'peach',
+        ];
+        $e->add($values);
+
+        $this->assertEquals('apple', $e['apple']);
+        $this->assertEquals(true, isset($e['pear']));
+        unset($e['pear']);
+        $this->assertEquals(false, isset($e['pear']));
+    }
 }

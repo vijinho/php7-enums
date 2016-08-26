@@ -2,7 +2,7 @@
 <?php
 use vijinho\Enums\Enum;
 
-require_once "../lib/autoload.php";
+require_once '../lib/autoload.php';
 
 // create a new empty enum $e
 echo "Example 1\n";
@@ -27,7 +27,7 @@ var_dump($e);
 // create a new enum $new with some values
 echo "Example 4\n";
 $new = new Enum(['banana', 'tangerine', 'peach']);
-echo $new ;
+echo $new;
 echo $e;
 // woah! these are identical because we use static values!
 
@@ -72,8 +72,8 @@ echo($e::banana());
 // check a key exists
 // uses __isset()
 echo "Example 11\n";
-echo isset($e->apple) == false ? "No Apple!" : "Yes Apple!";
-echo isset($e->nectarine) == false ? "No Nectarine!" : "Yes Nectarine!";
+echo isset($e->apple) == false ? 'No Apple!' : 'Yes Apple!';
+echo isset($e->nectarine) == false ? 'No Nectarine!' : 'Yes Nectarine!';
 
 // serialization to/from array
 // uses serialize/unserialize (from class implements Serializable)
@@ -89,7 +89,7 @@ echo "Example 13\n";
 $e->reset();
 $e->add([
     'Porsche' => 'fast',
-    'Skoda' => 'slow'
+    'Skoda'   => 'slow',
 ]);
 $e(['Bugatti' => 'Ludicrous Speed!']);
 

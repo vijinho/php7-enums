@@ -193,6 +193,35 @@ object(Fruits)#5 (5) {
 }
 ```
 
+### Using ENUM as an array directly
+
+Implements [PHP ArrayAccess interface](http://php.net/manual/en/class.arrayaccess.php)
+
+```
+// create a new enum $e
+echo "Example 1\n";
+$e = new Enum(['apple', 'pear', 'peach']);
+
+// retrieve apple using array access
+echo $e['apple']; // apple
+
+// retrieve apple using array access
+echo "Example 2\n";
+echo isset($e['pear']); // 1
+
+// remove a value
+unset($e['pear']);
+echo $e;
+
+/*
+{
+    "apple": "apple",
+    "peach": "peach"
+}
+*/
+
+```
+
 ## More Usage Examples
 
 The class uses static members, so though it can be instantiated with `new` there are some caveats detailed in the [examples](examples) folder:

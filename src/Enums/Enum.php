@@ -8,8 +8,10 @@ namespace vijinho\Enums;
  * @author Vijay Mahrra <vijay@yoyo.org>
  * @copyright (c) Copyright 2016 Vijay Mahrra
  * @license GPLv3 (http://www.gnu.org/licenses/gpl-3.0.html)
+ * @link http://php.net/manual/en/class.serializable.php
+ * @link http://php.net/manual/en/class.arrayaccess.php
  */
-class Enum implements \Serializable
+class Enum implements \Serializable, \ArrayAccess
 {
     /**
      * base enum values
@@ -203,7 +205,7 @@ class Enum implements \Serializable
      *
      * @param mixed $value
      * @param null|bool $caseSensitive search is case sensitive?
-     * @return integer|string|array<integer|string>|null
+     * @return string|array key(s)
      */
     public static function key($value, $caseSensitive = null)
     {
@@ -302,8 +304,7 @@ class Enum implements \Serializable
      * @return mixed static::$values[$key]
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.get
      */
-    public function __get(string $key)
-    {
+    public function __get(string $key) {
         return static::value($key);
     }
 
@@ -317,8 +318,7 @@ class Enum implements \Serializable
      * @return mixed static::$values[$key]
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.call
      */
-    public function __call(string $key, array $args = [])
-    {
+    public function __call(string $key, array $args = []) {
         return static::value($key);
     }
 
@@ -332,8 +332,7 @@ class Enum implements \Serializable
      * @return mixed static::$values[$key]
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.callstatic
      */
-    public static function __callStatic(string $key, array $args = [])
-    {
+    public static function __callStatic(string $key, array $args = []) {
         return static::value($key);
     }
 
@@ -356,10 +355,10 @@ class Enum implements \Serializable
      * when called as a function this class will add new values and return the result
      *
      * @param array $newValues
-     * @return array
+     * @return boolean
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.invoke
      */
-    public function __invoke($newValues): array
+    public function __invoke($newValues)
     {
         return static::add($newValues);
     }
@@ -406,10 +405,9 @@ class Enum implements \Serializable
      *
      * @return string enum values serialized
      * @link http://php.net/manual/en/class.serializable.php
-     * @return string|null
+     * @return void
      */
-    public function unserialize($data)
-    {
+    public function unserialize($data) {
         $data = unserialize($data);
         static::$values = $data;
     }
@@ -446,5 +444,63 @@ class Enum implements \Serializable
     public function __debugInfo(): array
     {
         return static::var_dump();
+    }
+
+    /**
+     * Implement Array offsetSet
+     *
+     * @param string $key the key to set
+     * @param mixed $value the value to set
+     * @return array debug info
+     * @link http://php.net/manual/en/class.arrayaccess.php
+     */
+    public function offsetSet($key, $value) {
+        if (is_null($key)) {
+            static::$values[] = $value;
+        } else {
+            static::$values[$key] = $value;
+        }
+    }
+
+
+    /**
+     * Implement Array offsetExists
+     *
+     * @param string $key the key to set
+     * @param mixed $value the value to set
+     * @return array debug info
+     * @link http://php.net/manual/en/class.arrayaccess.php
+     */
+    public function offsetExists($key) {
+        return isset(static::$values[$key]);
+    }
+
+
+    /**
+     * Implement Array offsetUnset
+     *
+     * @param string $key the key to set
+     * @param mixed $value the value to set
+     * @return array debug info
+     * @link http://php.net/manual/en/class.arrayaccess.php
+     */
+    public function offsetUnset($key) {
+        if (!empty(static::$overwrite)) {
+            throw new \LogicException('Overwrite not allowed.');
+        }
+        unset(static::$values[$key]);
+    }
+
+
+    /**
+     * Implement Array offsetGet
+     *
+     * @param string $key the key to set
+     * @param mixed $value the value to set
+     * @return array debug info
+     * @link http://php.net/manual/en/class.arrayaccess.php
+     */
+    public function offsetGet($key) {
+        return isset(static::$values[$key]) ? static::$values[$key] : null;
     }
 }
