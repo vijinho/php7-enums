@@ -355,7 +355,7 @@ class Enum implements \Serializable, \ArrayAccess
      * when called as a function this class will add new values and return the result
      *
      * @param array $newValues
-     * @return array static::$values
+     * @return array|null static::$values
      * @link http://php.net/manual/en/language.oop5.overloading.php#object.invoke
      */
     public function __invoke($newValues)
@@ -479,7 +479,7 @@ class Enum implements \Serializable, \ArrayAccess
      * Implement Array offsetUnset
      *
      * @param string $key the key to set
-     * @return array debug info
+     * @return array|null debug info
      * @link http://php.net/manual/en/class.arrayaccess.php
      */
     public function offsetUnset($key) {
