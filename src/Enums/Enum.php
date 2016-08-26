@@ -451,7 +451,7 @@ class Enum implements \Serializable, \ArrayAccess
      *
      * @param string $key the key to set
      * @param mixed $value the value to set
-     * @return array debug info
+     * @return array|null debug info
      * @link http://php.net/manual/en/class.arrayaccess.php
      */
     public function offsetSet($key, $value) {
