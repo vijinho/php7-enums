@@ -9,7 +9,7 @@ namespace Enums;
 
 use vijinho\Enums\Enum;
 
-class TestCase extends \PHPUnit_Framework_TestCase
+class TestCase extends \PHPUnit\Framework\TestCase
 {
     protected static $enum;
 
