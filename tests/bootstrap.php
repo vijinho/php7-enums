@@ -8,6 +8,13 @@
  */
 
 error_reporting(E_ALL | E_STRICT);
+
+// backward compatibility
+// There is a difference between namespace structure between PHPUnit <6 and PHPUnit 6.
+if (!class_exists('\PHPUnit\Framework\TestCase') &&
+    class_exists('\PHPUnit_Framework_TestCase')) {
+    class_alias('\PHPUnit_Framework_TestCase', '\PHPUnit\Framework\TestCase');
+}
 // Can be required more than once to allow running
 // phpunit installed with Composer
 // http://stackoverflow.com/a/12798022
