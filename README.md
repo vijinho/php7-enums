@@ -246,5 +246,4 @@ use \vijinho\Enums\Enum;
 ```
 
 Vijay Mahrra
-http://www.urunu.com
 ----
